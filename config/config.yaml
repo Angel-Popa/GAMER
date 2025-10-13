@@ -1,0 +1,49 @@
+# =============================================================================
+# GAM Pipeline Configuration
+# =============================================================================
+
+# Input files
+metadata: "data/samples_metadata.csv"
+count_matrix: "data/manual_gene_count_matrix.csv"
+
+# Output directory
+output_dir: "output"
+
+# Filtering parameters
+min_samples: 12  # Minimum samples with > 10 counts for gene to be kept
+
+# Normalization method
+normalization: "TMM"  # Options: TMM, RLE, upperquartile
+
+# Statistical thresholds
+alpha: 0.05  # Significance threshold for contrasts
+p_threshold: 0.001  # P-value threshold for filtering significant contrasts
+sig_threshold: 0.05  # Significance threshold for marking in plots
+
+# Parallel processing
+genes_per_chunk: 20  # Number of genes to process per chunk
+parallel_jobs: 4  # Number of parallel jobs per chunk
+
+# GAM model parameters
+gam_params:
+  k: 3  # Basis dimension for smooth terms
+  bs: "cr"  # Basis type (cr = cubic regression spline)
+  family: "nb"  # Distribution family (nb = negative binomial)
+  link: "log"  # Link function
+
+# Plotting parameters
+plot_params:
+  base_size: 14
+  width: 10
+  height: 6
+  dpi: 300
+
+# Metadata column names (customize based on your data)
+metadata_columns:
+  sample_id: "Sample"
+  line: "Line"
+  timepoint: "DPA"  # Days Post-Anthesis or your time variable
+  
+# Lines to include in analysis (set to null to include all)
+lines_to_include: ["1", "2", "3", "4", "5", "6"]
+# lines_to_include: null  # Use this to include all lines
