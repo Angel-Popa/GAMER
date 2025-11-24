@@ -17,7 +17,7 @@ conda activate snakemake
 ### Required Files:
 
 1. **Sample metadata** (`data/samples_metadata.csv`)
-   - Must include columns for: Sample ID, Line, Time point
+   - Must include columns for: Sample ID, Group, Time point
    - See `data/samples_metadata_example.csv` for format
 
 2. **Count matrix** (`data/manual_gene_count_matrix.csv`)
@@ -45,11 +45,11 @@ count_matrix: "data/gene_counts.csv"
 # Adjust column names to match YOUR data
 metadata_columns:
   sample_id: "Sample"      ← Your sample ID column name
-  line: "Line"             ← Your line/genotype column name
+  group: "Group"             ← Your group/genotype column name
   timepoint: "DPA"         ← Your time variable column name
 
-# Optional: Specify which lines to analyze
-lines_to_include: ["1", "2", "3"]  # or null for all
+# Optional: Specify which groups to analyze
+groups_to_include: ["1", "2", "3"]  # or null for all
 ```
 
 ## Step 4: Test Run

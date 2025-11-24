@@ -140,11 +140,11 @@ def aggregate_gam_chunks(wildcards):
     """
     checkpoint_output = checkpoints.get_chunks.get(**wildcards).output[0]
     chunk_list = f"{REPORT_DIR}/chunk_files.txt"
-    
+
     with open(chunk_list) as f:
-        chunks = [line.strip().split('_')[-1].replace('.txt', '') 
-                 for line in f if line.strip()]
-    
+        chunks = [group.strip().split('_')[-1].replace('.txt', '')
+                 for group in f if group.strip()]
+
     return expand(f"{RESULTS_DIR}/GAM_chunk_{{chunk}}.done", chunk=chunks)
 
 rule combine_gam_results:

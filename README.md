@@ -6,8 +6,8 @@ A flexible Snakemake pipeline for Generalized Additive Model (GAM) analysis of g
 
 This pipeline performs:
 1. **Data normalization** using TMM (Trimmed Mean of M-values)
-2. **GAM modeling** to analyze gene expression patterns over time across different lines
-3. **Contrast analysis** to identify significant differences between lines
+2. **GAM modeling** to analyze gene expression patterns over time across different groups
+3. **Contrast analysis** to identify significant differences between groups
 4. **Visualization** of significant contrasts
 
 ## Features
@@ -55,7 +55,7 @@ conda install -c conda-forge -c bioconda snakemake
 
 2. **Clone or download this pipeline**:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Angel-Popa/GAMER.git
 cd gam-pipeline
 ```
 
@@ -65,19 +65,19 @@ cd gam-pipeline
 
 Required columns (can be configured in `config.yaml`):
 - **Sample**: Unique sample identifier
-- **Line**: Line/genotype identifier
-- **DPA**: Time point (e.g., Days Post-Anthesis)
+- **Group**: Group/genotype identifier
+- **Time**: Time point (e.g., Days Post-Anthesis, Days of growth)
 
 Example:
 ```csv
-Sample,Line,DPA,Other_Info
+Sample,Group,Time,Other_Info
 Sample1,1,10,batch1
 Sample2,1,15,batch1
 Sample3,2,10,batch1
 Sample4,2,15,batch2
 ```
 
-### 2. Count Matrix (`manual_gene_count_matrix.csv`)
+### 2. Count Matrix (`gene_count_matrix.csv`)
 
 Format:
 - First column: gene IDs
@@ -100,7 +100,7 @@ Edit `config/config.yaml` to customize the analysis:
 ```yaml
 # Input files
 metadata: "data/samples_metadata.csv"
-count_matrix: "data/manual_gene_count_matrix.csv"
+count_matrix: "data/gene_count_matrix.csv"
 
 # Output directory
 output_dir: "output"
@@ -117,11 +117,11 @@ parallel_jobs: 4         # Cores per chunk
 # Metadata columns (customize to your data)
 metadata_columns:
   sample_id: "Sample"
-  line: "Line"
-  timepoint: "DPA"
+  group: "Group"
+  timepoint: "Time"
 
-# Filter specific lines (or set to null for all)
-lines_to_include: ["1", "2", "3", "4", "5", "6"]
+# Filter specific groups (or set to null for all)
+groups_to_include: ["1", "2", "3", "4", "5", "6"]
 ```
 
 ## Usage
@@ -197,12 +197,12 @@ output/
    - Number of significant contrasts
 
 2. **GAM_contrasts.csv**: Detailed contrast results
-   - Pairwise line comparisons at each time point
+   - Pairwise group comparisons at each time point
    - Effect sizes, confidence intervals, p-values
 
 3. **GAM_significant_genes.txt**: List of genes with significant contrasts (p < threshold)
 
-4. **Contrast plots**: Visual representation of significant differences between lines over time
+4. **Contrast plots**: Visual representation of significant differences between groups over time
 
 ## Customization for Different Datasets
 
@@ -213,16 +213,16 @@ If your time variable is "Hours" instead of "DPA":
 ```yaml
 metadata_columns:
   sample_id: "SampleID"
-  line: "Genotype"
+  group: "Genotype"
   timepoint: "Hours"
 ```
 
-### Example 2: All Lines Included
+### Example 2: All Groups Included
 
-To analyze all lines in your dataset:
+To analyze all groups in your dataset:
 
 ```yaml
-lines_to_include: null
+groups_to_include: null
 ```
 
 ### Example 3: More Stringent Filtering

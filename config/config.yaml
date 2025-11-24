@@ -41,9 +41,9 @@ plot_params:
 # Metadata column names (customize based on your data)
 metadata_columns:
   sample_id: "Sample"
-  line: "Line"
-  timepoint: "DPA"  # Days Post-Anthesis or your time variable
-  
-# Lines to include in analysis (set to null to include all)
-lines_to_include: ["1", "2", "3", "4", "5", "6"]
-# lines_to_include: null  # Use this to include all lines
+  group: "Group"
+  timepoint: "Time"  # Days Post-Anthesis or your time variable
+
+# Groups to include in analysis (set to null to include all)
+groups_to_include: ["1", "2", "3", "4", "5", "6"]
+# groups_to_include: null  # Use this to include all groups
